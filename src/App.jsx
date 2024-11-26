@@ -1,20 +1,20 @@
-import Header from './components/Header.jsx';
-import Home from './views/Home.jsx';
-import './App.scss';
+import "./App.scss";
+import Header from "./components/Header/Header.jsx";
+import { TodosProvider } from "./Context/TodosContext.jsx";
+import Home from "./views/Home.jsx";
 
 function App() {
-
   return (
     <>
       <main>
-        
-        <Header appName="To-Do List with React" />
+        <TodosProvider>
+          <Header appName="To-Do List with React" />
 
-        <Home />
-
+          <Home />
+        </TodosProvider>
       </main>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
