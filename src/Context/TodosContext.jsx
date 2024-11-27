@@ -1,38 +1,53 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useReducer, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 export const TodosContext = createContext("");
 
-const initialTodos = [
-  {
-    id: 0,
-    title: "Do Groceries",
-    description: "Buy apples, rice, juice and toilet paper.",
-    isDone: false,
-  },
-  {
-    id: 1,
-    title: "Study React",
-    description: "Understand context & reducers.",
-    isDone: false,
-  },
-  {
-    id: 2,
-    title: "Learn Redux",
-    description: "Learn state management with Redux",
-    isDone: false,
-  },
-];
-
 export function TodosProvider({ children }) {
+  const initialTodos = localStorage.getItem("To-Dos")
+    ? JSON.parse(localStorage.getItem("To-Dos"))
+    : [];
   const [todos, dispatch] = useReducer(todosReducer, initialTodos);
   const [toggleModal, setToggleModal] = useState(false);
+  const [filterBy, setFilterBy] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("To-Dos", JSON.stringify(todos));
+  }, [todos]);
+
+  const filteredTodo = () => {
+    switch (filterBy) {
+      case "DONE": {
+        return todos.filter((todo) => todo.isDone);
+      }
+      case "TODO": {
+        return todos.filter((todo) => !todo.isDone);
+      }
+      default: {
+        return todos;
+      }
+    }
+  };
 
   return (
     <>
       <main>
         <TodosContext.Provider
-          value={{ todos, dispatch, toggleModal, setToggleModal }}
+          value={{
+            todos,
+            dispatch,
+            toggleModal,
+            setToggleModal,
+            filterBy,
+            setFilterBy,
+            filteredTodo,
+          }}
         >
           {children}
         </TodosContext.Provider>
@@ -55,8 +70,9 @@ const todosReducer = (todos, action) => {
     case "DELETE_TODO": {
       if (confirm("Are you sure you want to delete the to-do")) {
         return todos.filter((todo) => todo.id !== action.id);
+      } else {
+        return todos;
       }
-      break;
     }
     case "ADD_TODO": {
       const exists = todos.some((todo) => todo.title === action.payload.title);

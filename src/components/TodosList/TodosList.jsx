@@ -7,9 +7,13 @@ function TodosList() {
   return (
     <>
       <div className="todos">
-        {state.todos.map((todo) => (
-          <Todo key={todo.id} todo={todo} />
-        ))}
+        {state.filteredTodo().length ? (
+          state.filteredTodo().map((todo) => <Todo key={todo.id} todo={todo} />)
+        ) : (
+          <span>
+            No tasks to be shown. Try clearing the filter or adding a new task
+          </span>
+        )}
       </div>
     </>
   );
