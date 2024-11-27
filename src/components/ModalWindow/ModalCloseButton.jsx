@@ -1,8 +1,7 @@
-import { useContext } from "react";
-import { TodosContext } from "../../Context/TodosContext";
+import { useTodos } from "../../Context/TodosContext";
 
 const ModalCloseButton = () => {
-  const { setToggleModal } = useContext(TodosContext);
+  const { setToggleModal } = useTodos();
   return (
     <button className="close-btn" onClick={() => setToggleModal(false)}>
       <svg

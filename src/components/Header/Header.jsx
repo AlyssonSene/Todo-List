@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useContext } from "react";
-import { TodosContext } from "../../Context/TodosContext";
+import { useTodos } from "../../Context/TodosContext";
 import "./Header.scss";
 
 function Header({ appName }) {
-  const { setToggleModal } = useContext(TodosContext);
+  const { setToggleModal } = useTodos();
   return (
     <>
       <div className="header">

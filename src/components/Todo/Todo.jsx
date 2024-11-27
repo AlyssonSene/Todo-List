@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useContext } from "react";
-import { TodosContext } from "../../Context/TodosContext";
+import { useTodos } from "../../Context/TodosContext";
 import "./Todo.scss";
 
 function Todo({ todo }) {
-  const state = useContext(TodosContext);
+  const state = useTodos();
 
   const toggleIsDoneHandler = (id) => {
     state.dispatch({
