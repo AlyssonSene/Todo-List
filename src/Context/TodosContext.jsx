@@ -56,6 +56,16 @@ const todosReducer = (todos, action) => {
       if (confirm("Are you sure you want to delete the to-do")) {
         return todos.filter((todo) => todo.id !== action.id);
       }
+      break;
+    }
+    case "ADD_TODO": {
+      const exists = todos.some((todo) => todo.title === action.payload.title);
+      if (exists) {
+        alert("To-do already exists!");
+        return todos;
+      } else {
+        return [...todos, action.payload];
+      }
     }
   }
 };
