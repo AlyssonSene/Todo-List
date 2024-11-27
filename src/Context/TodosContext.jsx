@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 import { todosReducer } from "./TodosReducer";
 export const TodosContext = createContext("");
 
@@ -27,11 +27,14 @@ const initialTodos = [
 
 export function TodosProvider({ children }) {
   const [todos, dispatch] = useReducer(todosReducer, initialTodos);
+  const [toggleModal, setToggleModal] = useState(false);
 
   return (
     <>
       <main>
-        <TodosContext.Provider value={{ todos, dispatch }}>
+        <TodosContext.Provider
+          value={{ todos, dispatch, toggleModal, setToggleModal }}
+        >
           {children}
         </TodosContext.Provider>
       </main>
