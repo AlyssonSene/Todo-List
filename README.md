@@ -6,6 +6,7 @@ Uma aplicação de lista de tarefas desenvolvida com React. Este projeto foi cri
 
 - Adicionar novas tarefas.
 - Marcar tarefas como concluídas.
+- Filtrar tarefas concluídas e não conclídas.
 - Excluir tarefas.
 
 ## Tecnologias Utilizadas
